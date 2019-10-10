@@ -42,6 +42,7 @@ echo "Collecting metrics at ${OUTPUT_FILE} every ${COLLECT_INTERVAL_MS}ms..."
 
 dcgmi dmon -d "${COLLECT_INTERVAL_MS}" -e \
 "54,"\
+"191,"\
 "100,101,"\
 "140,150,155,156,"\
 "200,201,202,203,204,206,207,"\
@@ -66,6 +67,9 @@ function metric(name, type, help, value) {
     i = 1
     gpu = $(i++)                                                                                                      # field 0 (implicit)
     uuid = $(i++)                                                                                                     # field 54
+
+	#Fan_speed
+    metric("fan_speed_percent", "gauge", "Fanspeed of the GPU device as a percent of its maximum (in %).", $(i++))    #field 191
 
     # Clocks
     metric("sm_clock", "gauge", "SM clock frequency (in MHz).", $(i++))                                               # field 100
